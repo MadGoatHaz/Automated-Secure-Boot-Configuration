@@ -1,7 +1,15 @@
 # Windows USB Input Issues with Secure Boot
 
 ## Overview
-This document addresses a common issue where keyboard and mouse devices stop working on the Windows login screen when Secure Boot is enabled in a dual-boot setup with Arch Linux. This is a Windows-specific driver issue, not a Linux problem.
+This document addresses common USB input device issues (keyboards, mice) in Windows when Secure Boot is enabled, particularly in dual-boot setups with Arch Linux. These issues are typically Windows-specific driver-related problems, not Linux problems.
+
+## USB Port Considerations
+
+Before troubleshooting drivers, ensure you're using the correct USB ports:
+
+- **Use Native Motherboard USB Ports**: Many motherboards color-code USB ports to indicate different chipsets. Blue or black ports typically connect directly to the motherboard's native USB controller, while other colors may use third-party controllers.
+- **Avoid Third-Party USB Controllers**: Some motherboards have additional USB ports powered by third-party chipsets (e.g., ASMedia). These controllers may have drivers that don't play well with Secure Boot.
+- **Try Different USB Ports**: If your USB devices aren't working, try switching to a different color/port, particularly ones known to be connected to the native chipset.
 
 ## Root Cause
 Secure Boot ensures only digitally signed and trusted drivers load during boot. If a USB HID (keyboard/mouse) driver or filter driver is:
