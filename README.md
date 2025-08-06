@@ -1,4 +1,4 @@
-# Secure Boot Setup for Arch Linux
+# Automated Secure Boot Configuration (ASBC)
 
 This project provides a comprehensive solution for enabling Secure Boot on Arch Linux systems, with support for both systemd-boot and rEFInd bootloaders. The setup ensures compatibility with Windows dual-boot configurations while maintaining the security benefits of UEFI Secure Boot.
 
