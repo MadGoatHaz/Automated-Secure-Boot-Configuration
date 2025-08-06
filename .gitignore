@@ -1,0 +1,38 @@
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore logs
+*.log
+
+# Ignore EFI system partition files (user-specific)
+/efi
+
+# Ignore machine-specific keys
+/var/lib/sbctl/keys
+
+# Ignore build artifacts
+*.o
+*.out
+*.class
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore virtual environment files
+env/
+venv/
+__pycache__/
+*.pyc
+
+# Ignore vim/sublime text temporary files
+*.sublime-workspace
+*.sublime-project
+*.sublime-mru
+*.sublime-workspace
+*.sublime-project
+*.sublime-mru
+*.sublime-workspace
+*.sublime-project
+*.sublime-mru
