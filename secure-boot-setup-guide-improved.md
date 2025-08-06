@@ -1,6 +1,6 @@
-# Secure Boot Setup Guide for Arch Linux with rEFInd, systemd-boot, and sbctl
+# Secure Boot Setup Guide for Arch Linux with systemd-boot, systemd-boot, and sbctl
 
-This guide provides step-by-step instructions for setting up Secure Boot on Arch Linux using either rEFInd or systemd-boot with sbctl. This setup allows you to boot both Arch Linux and Windows with Secure Boot enabled.
+This guide provides step-by-step instructions for setting up Secure Boot on Arch Linux using either systemd-boot or systemd-boot with sbctl. This setup allows you to boot both Arch Linux and Windows with Secure Boot enabled.
 
 **Note**: The improved automation script (`secure-boot-setup-improved.sh`) supports both bootloader configurations and handles most of the setup process.
 
@@ -44,12 +44,12 @@ sudo sbctl enroll-keys -m
 
 This guide supports two bootloader configurations:
 
-1. **rEFInd (recommended for multi-boot setups)**
+1. **systemd-boot (recommended for multi-boot setups)**
 2. **systemd-boot with Unified Kernel Images (UKI, recommended for modern systems)**
 
-#### Option A: Install rEFInd Bootloader
+#### Option A: Install systemd-boot Bootloader
 
-Install rEFInd:
+Install systemd-boot:
 
 ```bash
 sudo refind-install --yes
@@ -64,7 +64,7 @@ If you prefer to use systemd-boot with UKIs, proceed to the systemd-boot configu
 Backup the original bootloader binary and replace it with shim:
 
 ```bash
-# For rEFInd
+# For systemd-boot
 sudo cp /efi/EFI/refind/refind_x64.efi /efi/EFI/refind/refind_original.efi
 sudo cp /usr/share/shim-signed/shimx64.efi /efi/EFI/refind/refind_x64.efi
 
@@ -74,9 +74,9 @@ sudo cp /usr/lib/systemd/boot/efi/systemd-bootx64.efi /usr/lib/systemd/boot/efi/
 
 ### 6. Sign Required Files
 
-#### For rEFInd
+#### For systemd-boot
 
-Sign the kernel and rEFInd driver files:
+Sign the kernel and systemd-boot driver files:
 
 ```bash
 sudo sbctl sign -s /efi/$(cat /etc/machine-id)/$(uname -r)/linux
@@ -104,7 +104,7 @@ sudo sbctl sign -s /efi/EFI/Linux/arch.efi
 
 ### 7. Configure Bootloader
 
-#### For rEFInd
+#### For systemd-boot
 
 Edit `/efi/EFI/refind/refind.conf` to include:
 

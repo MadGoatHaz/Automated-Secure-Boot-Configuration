@@ -214,8 +214,8 @@ fi
 
 # Kernel signing handled within bootloader-specific configuration blocks
 
-# No rEFInd-specific configuration needed - using detected bootloader
-# No rEFInd-specific configuration needed - using detected bootloader
+# No systemd-boot-specific configuration needed - using detected bootloader
+# No systemd-boot-specific configuration needed - using detected bootloader
 
 log "Creating dynamic pacman hooks for automatic re-signing..."
 sudo mkdir -p /etc/pacman.d/hooks
