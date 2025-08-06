@@ -184,6 +184,12 @@ You should see "Secure Boot: ✓ Enabled".
 
 3. If keyboard/mouse don't work in Windows, you may need to disable Secure Boot temporarily and reinstall Windows drivers.
 
+### USB Peripheral Issues at Startup
+
+1. If your USB keyboard or mouse is not working at startup, try switching to a different USB port. Some third-party USB controllers may not be fully compatible with Secure Boot.
+2. If possible, use USB ports directly connected to the motherboard (not USB hubs or expansion cards).
+3. If you continue to experience issues, verify that your USB devices are properly detected in the UEFI firmware settings.
+
 ### If You Need to Reset Secure Boot
 
 1. Enter UEFI firmware settings and clear Secure Boot keys.

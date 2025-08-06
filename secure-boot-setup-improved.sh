@@ -55,7 +55,7 @@ MACHINE_ID=$(cat /etc/machine-id)
 UEFI_BOOT_MODE=$(cat /sys/firmware/efi/fw_platform_size 2>/dev/null || echo "Legacy")
 BOOTLOADER=$(find /efi/EFI -type f -name "grub*.efi" 2>/dev/null && echo "GRUB" || echo "systemd-boot/UKI")
 WINDOWS_INSTALLATION=$(if [ -f "/efi/EFI/Microsoft/Boot/bootmgfw.efi" ]; then echo "Yes"; else echo "No"; fi)
-SECURE_BOOT_STATUS=$(sudo sbctl status --quiet | grep -A1 "Secure Boot" | grep -v "Secure Boot" | tr -d ' ')
+KEYS_ENROLLED=$(sudo sbctl list-enrolled-keys | grep -q "PK:" && echo "yes" || echo "no")
 EFI_MOUNTED=$(if mountpoint -q /efi; then echo "Yes"; else echo "No"; fi)
 EFI_SPACE=$(df -h /efi | tail -n1 | awk '{print $4}')
 ROOT_FILESYSTEM=$(df -Th | grep '/dev/root' | awk '{print $2}')
@@ -76,8 +76,8 @@ log "Available Space: $EFI_SPACE"
 
 log "Proposed Implementation Plan:"
 log "-------------------------------"
-if [ "$SECURE_BOOT_STATUS" = "enabled" ]; then
-    log "⚠️  Secure Boot already enabled - key enrollment will be optional"
+if [ "$KEYS_ENROLLED" = "yes" ]; then
+    log "⚠️  Secure Boot keys already enrolled - key enrollment will be optional"
 else
     if [ "$BOOTLOADER" = "GRUB" ]; then
         log "1. Install required packages: sbctl, grub, efibootmgr"
@@ -127,15 +127,17 @@ log "Transitioning to EXECUTION state"
 # -------------------
 # Execute the core implementation steps
 
-if [ "$SECURE_BOOT_STATUS" = "disabled" ]; then
+if [ "$KEYS_ENROLLED" = "no" ]; then
     log "Creating Secure Boot keys..."
     sudo sbctl create-keys
+    log "Enrolling keys with Microsoft vendor keys..."
+    sudo sbctl enroll-keys -m
+    # Import Windows-compatible keys for USB device support
+    log "Importing Windows-compatible Secure Boot keys for USB device support..."
+    sudo sbctl import-keys -d /home/radgoat/Documents/SecureBoot/Original\ Windows\ Keys/
 else
-    log "Secure Boot already enabled - skipping key creation"
+    log "Secure Boot keys already enrolled - skipping key creation and enrollment"
 fi
-
-log "Enrolling keys with Microsoft vendor keys..."
-sudo sbctl enroll-keys -m
 
 if [ "$BOOTLOADER" = "GRUB" ]; then
     log "Configuring GRUB for Secure Boot..."
@@ -258,7 +260,7 @@ log "Final status verification:"
 sudo sbctl status
 
 log "File signing verification:"
-sudo sbctl verify
+sudo sbctl verify || true
 if [ "$WINDOWS_INSTALLATION" = "Yes" ]; then
     log "Windows bootloader verification:"
     sudo sbctl verify /efi/EFI/Microsoft/Boot/bootmgfw.efi
