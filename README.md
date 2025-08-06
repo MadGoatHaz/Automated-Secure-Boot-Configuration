@@ -29,8 +29,8 @@ This project provides a comprehensive, automated solution for enabling Secure Bo
 
 ## 📁 Files Included
 
-- `secure-boot-setup-improved.sh` - Main automation script
-- `secure-boot-setup-guide-improved.md` - Comprehensive setup guide
+- `secure-boot-setup.sh` - Main automation script
+- `secure-boot-setup-guide.md` - Comprehensive setup guide
 - `windows-usb-issues.md` - Troubleshooting Windows USB input issues
 - `secure-boot-dbx-issue.md` - Analysis of DBX key problems
 - `dbx-investigation-plan.md` - Investigation plan for DBX key issue
@@ -49,7 +49,7 @@ This project provides a comprehensive, automated solution for enabling Secure Bo
 
 2. **Run the setup script**:
    ```bash
-   sudo ./secure-boot-setup-improved.sh
+   sudo ./secure-boot-setup.sh
    ```
 
 3. **Follow the on-screen instructions** to complete the setup
@@ -58,7 +58,7 @@ This project provides a comprehensive, automated solution for enabling Secure Bo
 
 ## 📖 Documentation
 
-- [Secure Boot Setup Guide](secure-boot-setup-guide-improved.md) - Detailed instructions
+- [Secure Boot Setup Guide](secure-boot-setup-guide.md) - Detailed instructions
 - [Windows USB Issues](windows-usb-issues.md) - Troubleshooting Windows USB input problems
 - [DBX Key Issue](secure-boot-dbx-issue.md) - Analysis of missing DBX key problem
 - [DBX Investigation Plan](dbx-investigation-plan.md) - Plan for investigating DBX key issues
